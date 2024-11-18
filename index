@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Difference Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        .result {
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+        }
+        .highlight {
+            background: yellow;
+            color: red;
+        }
+        button {
+            padding: 10px 20px;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Text Difference Tool</h1>
+    <textarea id="text1" placeholder="Enter the first text here"></textarea>
+    <textarea id="text2" placeholder="Enter the second text here"></textarea>
+    <button onclick="compareTexts()">Compare</button>
+    <div class="result" id="result"></div>
+
+    <script>
+        function compareTexts() {
+            const text1 = document.getElementById("text1").value;
+            const text2 = document.getElementById("text2").value;
+
+            const result = document.getElementById("result");
+            result.innerHTML = ""; // Clear previous results
+
+            const differences = getDifferences(text1, text2);
+            result.innerHTML = differences;
+        }
+
+        function getDifferences(text1, text2) {
+            const splitText1 = text1.split("");
+            const splitText2 = text2.split("");
+            let result = "";
+
+            const maxLength = Math.max(splitText1.length, splitText2.length);
+            for (let i = 0; i < maxLength; i++) {
+                if (splitText1[i] !== splitText2[i]) {
+                    result += `<span class="highlight">${splitText2[i] || ""}</span>`;
+                } else {
+                    result += splitText2[i] || "";
+                }
+            }
+            return result;
+        }
+    </script>
+</body>
+</html>
